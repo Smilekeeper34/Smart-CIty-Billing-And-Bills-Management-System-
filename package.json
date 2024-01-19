@@ -4,7 +4,8 @@
   "description": "smart city billing system with aids in water usage analysis",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -16,9 +17,11 @@
   "author": "Governor Garikai Rwizi",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.3.2",
     "express": "^4.18.2",
     "mysql": "^2.18.1",
-    "mysql2": "^3.7.1"
+    "mysql2": "^3.7.1",
+    "nodemon": "^3.0.3"
   }
 }
