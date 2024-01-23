@@ -6,7 +6,7 @@ const billingService = require('../services/billingService');
 
 /**
  * @swagger
- * /billing/test:
+ * /api/billing/test:
  *   get:
  *   
  *     summary: Test the billing route
@@ -27,7 +27,7 @@ router.get('/test', (req, res) => {
 
 /**
  * @swagger
- * /billing:
+ * /api/billing/addBill:
  *   post:
  *     summary: Create a new billing
  *     tags: [Billing]
@@ -97,8 +97,27 @@ router.post('/addBill', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/billing/getAll:
+ *   get:
+ *     summary: Get all billings
+ *     tags: [Billing]
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example: { success: true, billings: [{ /* Billing details  }] }
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example: { success: false, error: 'Internal Server Error' }
+ */
+
 // Get all billings
-router.get('/', async (req, res) => {
+router.get('/getAll', async (req, res) => {
   try {
     const billings = await billingService.getAllBillings();
     res.status(200).json({ success: true, billings });
@@ -106,6 +125,25 @@ router.get('/', async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
+/**
+ * @swagger
+ * /api/billing/:billingID:
+ *   get:
+ *     summary: Get billings by ID
+ *     tags: [Billing]
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example: { success: true, billings: [{ /* Billing details  }] }
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example: { success: false, error: 'Internal Server Error' }
+ */
 
 // Get billing by ID
 router.get('/:billingID', async (req, res) => {
@@ -119,6 +157,43 @@ router.get('/:billingID', async (req, res) => {
   }
 });
 
+
+/**
+ * @swagger
+ * /api/billing/{billingID}/update-payment-status:
+ *   patch:
+ *     summary: Update payment status of a billing
+ *     tags: [Billing]
+ *     parameters:
+ *       - in: path
+ *         name: billingID
+ *         required: true
+ *         description: ID of the billing
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       description: New payment status
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newStatus:
+ *                 type: string
+ *                 description: New payment status
+ *     responses:
+ *       '200':
+ *         description: Payment status updated successfully
+ *         content:
+ *           application/json:
+ *             example: { success: true, billing: { /* Updated billing details  } }
+ *       '500':
+ *         description: Internal Server Error
+ *         content:
+ *           application/json:
+ *             example: { success: false, error: 'Internal Server Error' }
+ */
 // Update payment status
 router.patch('/:billingID/update-payment-status', async (req, res) => {
   const { billingID } = req.params;
