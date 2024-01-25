@@ -19,6 +19,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // use user routes
 app.use("/users", userRoutes);
+// use customer routes
+app.use("/customer",require('./routes/customerRoutes'));
 // Use the billing routes
 app.use("/api/billing",require('./routes/billingRoutes'));
 app.use("/api/billing",require('./routes/billingDetailsRoutes'));
