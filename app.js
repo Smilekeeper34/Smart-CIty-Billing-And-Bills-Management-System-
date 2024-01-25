@@ -21,6 +21,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use("/users", userRoutes);
 // Use the billing routes
 app.use("/api/billing",require('./routes/billingRoutes'));
+app.use("/api/billing",require('./routes/billingDetailsRoutes'));
 
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
