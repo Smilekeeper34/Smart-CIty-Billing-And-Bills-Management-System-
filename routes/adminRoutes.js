@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const { config } = require('../config/authConfig');
 const adminController = require('../controllers/adminController');
+const authMiddleware = require('../middlewares/authMiddlewares');
 
 
 /**
@@ -22,7 +23,7 @@ const adminController = require('../controllers/adminController');
  *       description: Admin data
  *       required: true
  *       content:
- *         application/json:
+ *         application/json: 
  *           example:
  *             username: admin123
  *             password: adminPassword
@@ -39,7 +40,7 @@ const adminController = require('../controllers/adminController');
  *             example: { success: false, error: 'Error creating admin' }
  */
 
-router.post('/create', adminController.createAdmin);
+router.post('/create',authMiddleware.authenticateAdmin, adminController.createAdmin);
 
 /**
  * @swagger
@@ -78,7 +79,7 @@ router.post('/create', adminController.createAdmin);
  *           application/json:
  *             example: { success: false, error: 'Error updating admin' }
  */
-router.put('/update/:adminID', adminController.updateAdmin);
+router.put('/update/:adminID',authMiddleware.authenticateAdmin, adminController.updateAdmin);
 
 /**
  * @swagger
@@ -111,7 +112,7 @@ router.put('/update/:adminID', adminController.updateAdmin);
  *             example: { success: false, error: 'Error deactivating admin' }
  */
 
-router.put('/deactivate/:adminID', adminController.deactivateAdmin);
+router.put('/deactivate/:adminID',authMiddleware.authenticateAdmin, adminController.deactivateAdmin);
 /**
  * @swagger
  * /api/admin/getAll:
@@ -130,7 +131,7 @@ router.put('/deactivate/:adminID', adminController.deactivateAdmin);
  *           application/json:
  *             example: { success: false, error: 'Error getting admins' }
  */
-router.get('/getAll', adminController.getAllAdmins);
+router.get('/getAll',authMiddleware.authenticateAdmin, adminController.getAllAdmins);
 /**
  * @swagger
  * /api/admin/getByID/{adminID}:
@@ -161,6 +162,6 @@ router.get('/getAll', adminController.getAllAdmins);
  *           application/json:
  *             example: { success: false, error: 'Error getting admin' }
  */
-router.get('/:adminID', adminController.getAdminByID);
+router.get('/:adminID',authMiddleware.authenticateAdmin, adminController.getAdminByID);
 
 module.exports = router;

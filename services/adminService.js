@@ -1,10 +1,13 @@
 // services/adminService.js
 const Admin = require('../models/adminModel');
 const { logger } = require('../utils/logger');
+const bcrypt = require('bcrypt');
+
 
 const createAdmin = async (username, password) => {
   try {
-    const admin = await Admin.create({ username, password });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const admin = await Admin.create({ username, password: hashedPassword });
     logger.info('Admin created successfully.');
     return admin;
   } catch (error) {
