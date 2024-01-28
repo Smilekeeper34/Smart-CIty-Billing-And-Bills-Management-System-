@@ -13,7 +13,7 @@ const customerService = require("../services/customerService");
 
 /**
  * @swagger
- * /customers:
+ * /api/customer/createCustomer:
  *   post:
  *     summary: Create a new customer
  *     tags: [Customers]
@@ -61,7 +61,7 @@ const customerService = require("../services/customerService");
  *           application/json:
  *             example: { success: false, error: 'Error creating customer' }
  */
-router.post("/", async (req, res) => {
+router.post("/createCustomer", async (req, res) => {
   const customerData = req.body;
 
   try {
@@ -74,7 +74,34 @@ router.post("/", async (req, res) => {
 
 /**
  * @swagger
- * /customers/{customerID}:
+ * /api/customer/getAll:
+ *   get:
+ *     summary: Get all customers
+ *     tags: [Customers]
+ *     responses:
+ *       '200':
+ *         description: A list of customers
+ *         content:
+ *           application/json:
+ *             example: { success: true, customers: [{ CustomerID: 1, ... }, { CustomerID: 2, ... }] }
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example: { success: false, error: 'Error getting customers' }
+ */
+router.get('/getAll', async (req, res) => {
+  try {
+    const customers = await customerService.getAllCustomers();
+    res.status(200).json({ success: true, customers });
+  } catch (error) {
+    res.status(500).json({ success: false, error: `Error getting customers: ${error.message}` });
+  }
+});
+
+/**
+ * @swagger
+ * /api/customer/{customerID}:
  *   get:
  *     summary: Get customer by ID
  *     tags:
@@ -112,7 +139,7 @@ router.get("/:customerID", async (req, res) => {
 
 /**
  * @swagger
- * /customers/{customerID}:
+ * /api/customer/{customerID}:
  *   put:
  *     summary: Update customer by ID
  *     tags:
@@ -163,7 +190,7 @@ router.put("/:customerID", async (req, res) => {
 
 /**
  * @swagger
- * /customers/{customerID}:
+ * /api/customer/{customerID}:
  *   delete:
  *     summary: Delete customer by ID
  *     tags: [Customers]

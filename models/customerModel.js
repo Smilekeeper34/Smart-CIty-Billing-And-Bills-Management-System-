@@ -111,6 +111,7 @@ const Customer = sequelize.define('Customer', {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
-});
+}, {
+  tableName: 'customers',});
 
 module.exports = Customer;

@@ -1,13 +1,34 @@
 // services/customerService.js
 
-const { Customer } = require('../models/customerModel');
+const Customer = require('../models/customerModel');
+const { createLogger, transports } = require('winston');
+
+// Create a logger
+const logger = createLogger({
+  transports: [
+    new transports.Console(),
+    // You can add more transports like a file transport here
+  ],
+});
 
 const createCustomer = async (customerData) => {
   try {
+    logger.info('Creating a new customer...');
     const customer = await Customer.create(customerData);
+    logger.info('Customer created successfully.');
     return customer;
   } catch (error) {
+    logger.error(`Error creating customer: ${error.message}`);
     throw new Error(`Error creating customer: ${error.message}`);
+  }
+};
+
+const getAllCustomers = async () => {
+  try {
+    const customers = await Customer.findAll();
+    return customers;
+  } catch (error) {
+    throw new Error(`Error getting customers: ${error.message}`);
   }
 };
 
@@ -53,5 +74,6 @@ module.exports = {
   createCustomer,
   getCustomerById,
   updateCustomer,
+  getAllCustomers,
   deleteCustomer,
 };

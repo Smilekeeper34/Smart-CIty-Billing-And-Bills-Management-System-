@@ -10,6 +10,15 @@ const options = {
       description: 'API documentation for the Smart City Billing and Bills Management System',
     },
   },
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+    },
+  },
   // routes location
   apis: ['./routes/*.js'], 
 };
