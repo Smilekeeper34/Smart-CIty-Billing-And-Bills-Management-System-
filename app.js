@@ -9,6 +9,7 @@ const express = require("express");
 const userRoutes = require("./routes/userRoutes");
 const { config,auth } = require('./config/authConfig');
 const billingRoutes = require("./routes/billingRoutes");
+const tariffRateRoutes = require('./routes/tariffRateRoutes');
 const billingCycleRoutes = require('./routes/billingCycleRoutes');
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpecs = require("./config/swaggerConfig");
@@ -33,7 +34,7 @@ app.use("/api/customer",require('./routes/customerRoutes'));
 app.use("/api/billing",require('./routes/billingRoutes'));
 app.use("/api/billing",require('./routes/billingDetailsRoutes'));
 app.use('/api/billing-cycles', billingCycleRoutes);
-
+app.use('/api/tariffRates', tariffRateRoutes);
 
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
