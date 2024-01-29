@@ -36,7 +36,7 @@ router.post('/', authMiddleware.authenticateAdmin, tariffRateController.createTa
 
 /**
  * @swagger
- * /api/tariffs:
+ * /api/tariffRates/getAll:
  *   get:
  *     summary: Get all tariffs
  *     tags: [Tariffs]
@@ -52,11 +52,11 @@ router.post('/', authMiddleware.authenticateAdmin, tariffRateController.createTa
  *           application/json:
  *             example: { success: false, error: 'Error getting tariffs' }
  */
-router.get('/', tariffRateController.getAllTariffs);
+router.get('/getAll', tariffRateController.getAllTariffs);
 
 /**
  * @swagger
- * /api/tariffs/{tariffID}:
+ * /api/tariffRates/{tariffID}:
  *   get:
  *     summary: Get tariff by ID
  *     tags: [Tariffs]
@@ -88,7 +88,7 @@ router.get('/:tariffID', tariffRateController.getTariffByID);
 
 /**
  * @swagger
- * /api/tariffs/{tariffID}:
+ * /api/tariffRates/{tariffID}:
  *   delete:
  *     summary: Delete tariff by ID
  *     tags: [Tariffs]

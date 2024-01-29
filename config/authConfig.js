@@ -9,6 +9,7 @@ const config = {
   baseURL: 'http://localhost:3000',
   clientID: 'tLXgsFpP1bOdlvel2qj4ESLk72Xvbrpp',
   issuerBaseURL: 'https://dev-mb8o8nmwjwyv2dv4.us.auth0.com',
+
 };
 
 module.exports = { config, auth };  // Export the auth middleware along with the config

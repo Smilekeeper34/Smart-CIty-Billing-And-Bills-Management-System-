@@ -13,6 +13,9 @@ const tariffRateRoutes = require('./routes/tariffRateRoutes');
 const billingCycleRoutes = require('./routes/billingCycleRoutes');
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpecs = require("./config/swaggerConfig");
+const feedbackRoutes = require("./routes/feedbackRoutes");
+const systemConfigRoutes = require("./routes/systemConfigRoutes")
+
 
 dotenv.config();
 const app = express();
@@ -26,6 +29,10 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // use user routes
 app.use("/users", userRoutes);
+// use user feedback routes
+app.use("/api/feedback", feedbackRoutes);
+// use system config routes
+app.use("/system/config", systemConfigRoutes);
 // use Admin routes
 app.use("/api/admin", require('./routes/adminRoutes')); 
 // use customer routes

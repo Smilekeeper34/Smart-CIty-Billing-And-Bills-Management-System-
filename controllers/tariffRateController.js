@@ -61,7 +61,7 @@ const updateTariffRate = async (req, res) => {
 
 const getAllTariffs = async (req, res) => {
   try {
-    const tariffs = await Tariff.findAll();
+    const tariffs = await TariffRate.findAll();
 
     return res.status(200).json({ success: true, tariffs });
   } catch (error) {
@@ -74,7 +74,7 @@ const getTariffByID = async (req, res) => {
   try {
     const { tariffID } = req.params;
 
-    const tariff = await Tariff.findByPk(tariffID);
+    const tariff = await TariffRate.findByPk(tariffID);
 
     if (!tariff) {
       return res.status(404).json({ success: false, error: 'Tariff not found' });
@@ -91,7 +91,7 @@ const deleteTariff = async (req, res) => {
   try {
     const { tariffID } = req.params;
 
-    const tariff = await Tariff.findByPk(tariffID);
+    const tariff = await TariffRate.findByPk(tariffID);
 
     if (!tariff) {
       return res.status(404).json({ success: false, error: 'Tariff not found' });

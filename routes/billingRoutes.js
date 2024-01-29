@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const billingService = require('../services/billingService');
-
+const invoiceGeneration = require('../services/invoiceGeneration')
 
 /**
  * @swagger
@@ -206,5 +206,53 @@ router.patch('/:billingID/update-payment-status', async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+/**
+ * @swagger
+ * /api/billing/generateInvoice/{billingCycleID}:
+ *   post:
+ *     summary: Generate an invoice for the specified billing cycle.
+ *     tags: [Billing]
+ *     parameters:
+ *       - in: path
+ *         name: billingCycleID
+ *         required: true
+ *         description: ID of the billing cycle for which to generate the invoice.
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       description: Invoice data
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             customerID: 1
+ *             dueDate: '2023-01-31'
+ *             paymentStatus: 'Pending'
+ *             paymentMethod: 'Credit Card'
+ *             transactionId: '123456789'
+ *             notes: 'Additional notes for the invoice'
+ *             lateFee: 10.00
+ *             taxAmount: 5.00
+ *             discountAmount: 2.50
+ *             promoCode: 'SUMMER20'
+ *     responses:
+ *       '201':
+ *         description: Invoice generated successfully
+ *         content:
+ *           application/json:
+ *             example: { success: true, billing: { /* details of the generated invoice  } }
+ *       '404':
+ *         description: No billing details found for the specified billing cycle
+ *         content:
+ *           application/json:
+ *             example: { success: false, error: 'No billing details found for the specified billing cycle' }
+ *       '500':
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             example: { success: false, error: 'Error generating invoice' }
+ */
+router.post('/generateInvoice/:billingCycleID', invoiceGeneration.generateInvoice);
+
 
 module.exports = router;
