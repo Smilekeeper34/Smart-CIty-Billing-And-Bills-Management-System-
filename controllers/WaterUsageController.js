@@ -48,6 +48,58 @@ class WaterUsageController {
       return res.status(500).json({ success: false, error: 'Error fetching water usage data' });
     }
   }
+
+  static async getRealWorldUsageInsights(req, res) {
+    try {
+      const { customerID } = req.params;
+      const waterUsageData = await WaterUsageService.getWaterUsageByCustomer(customerID);
+
+      // Identify patterns using the RealWorldDataAnalysisService
+      const clusters = RealWorldDataAnalysisService.identifyUsagePatterns(waterUsageData);
+
+      return res.status(200).json({ success: true, data: { waterUsage: waterUsageData, clusters } });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, error: 'Error fetching water usage insights' });
+    }
+  }
+
+  static async identifyUsagePatterns(req, res) {
+    try {
+      const waterUsageData = await WaterUsage.findAll();
+      const usagePatterns = RealWorldDataAnalysisService.identifyUsagePatterns(waterUsageData);
+
+      return res.status(200).json({ success: true, data: usagePatterns });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, error: 'Error identifying usage patterns' });
+    }
+  }
+
+  static async detectAnomalies(req, res) {
+    try {
+      const waterUsageData = await WaterUsage.findAll();
+      const anomalies = RealWorldDataAnalysisService.detectAnomalies(waterUsageData);
+
+      return res.status(200).json({ success: true, data: anomalies });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, error: 'Error detecting anomalies' });
+    }
+  }
+
+  static async identifyTrends(req, res) {
+    try {
+      const waterUsageData = await WaterUsage.findAll();
+      const trendData = RealWorldDataAnalysisService.identifyTrends(waterUsageData);
+
+      return res.status(200).json({ success: true, data: trendData });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ success: false, error: 'Error identifying trends' });
+    }
+  }
 }
+
 
 module.exports = WaterUsageController;
