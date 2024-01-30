@@ -2,6 +2,7 @@
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Property = require('./propertyModel');
 
 const Customer = sequelize.define('Customer', {
   customerID: {
@@ -110,8 +111,17 @@ const Customer = sequelize.define('Customer', {
   userFeedbackOptIn: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
+  },landownerProperties: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: Property,
+      key: 'propertyID',
+    },
   },
 }, {
   tableName: 'customers',});
+
+  // Create association between Customer and Property
+// Customer.hasMany(Property, { foreignKey: 'propertyID' });
 
 module.exports = Customer;

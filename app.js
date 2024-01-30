@@ -14,8 +14,10 @@ const billingCycleRoutes = require('./routes/billingCycleRoutes');
 const swaggerUi = require("swagger-ui-express");
 const swaggerSpecs = require("./config/swaggerConfig");
 const feedbackRoutes = require("./routes/feedbackRoutes");
-const systemConfigRoutes = require("./routes/systemConfigRoutes")
-
+const systemConfigRoutes = require("./routes/systemConfigRoutes");
+const authRoutes = require("./routes/authRoutes");
+const propertyRoutes = require('./routes/propertyRoutes');
+const waterUsageRoutes = require('./routes/waterUsageRoutes');
 
 dotenv.config();
 const app = express();
@@ -29,6 +31,8 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 // use user routes
 app.use("/users", userRoutes);
+// use auth routes
+app.use("/auth", authRoutes);
 // use user feedback routes
 app.use("/api/feedback", feedbackRoutes);
 // use system config routes
@@ -42,6 +46,9 @@ app.use("/api/billing",require('./routes/billingRoutes'));
 app.use("/api/billing",require('./routes/billingDetailsRoutes'));
 app.use('/api/billing-cycles', billingCycleRoutes);
 app.use('/api/tariffRates', tariffRateRoutes);
+app.use('/api/properties', propertyRoutes);
+app.use('/api/water-usage', waterUsageRoutes);
+
 
 const PORT = process.env.PORT || 3000;
 sequelize.sync().then(() => {
