@@ -2,6 +2,7 @@
 
 require("dotenv").config();
 const dotenv = require('dotenv');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const sequelize = require('./config/database');
 const Sequelize = require("sequelize");
@@ -21,7 +22,8 @@ const waterUsageRoutes = require('./routes/waterUsageRoutes');
 
 dotenv.config();
 const app = express();
-
+// Use the `cors` middleware
+app.use(cors())
 // Use the Auth0 middleware
 app.use(auth(config));
 

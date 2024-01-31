@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const AuthController = require('../controllers/authController');
+const LoginController = require('../controllers/loginController');
 
 // Step 1: Register basic information (email, phone, password, name)
 /**
@@ -18,7 +19,7 @@ const AuthController = require('../controllers/authController');
  *             properties:
  *               email:
  *                 type: string
- *               phoneNumber:
+ *               contactNumber:
  *                 type: string
  *               password:
  *                 type: string
@@ -62,5 +63,58 @@ router.post('/register/basic', AuthController.registerBasicInfo);
  *         description: Error completing registration
  */
 router.post('/register/complete', AuthController.completeRegistration);
+
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Authenticate a user
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: User's email address
+ *               password:
+ *                 type: string
+ *                 description: User's password
+ *     responses:
+ *       '200':
+ *         description: Successful authentication
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the authentication was successful
+ *                 token:
+ *                   type: string
+ *                   description: JWT token for authenticated user
+ *                 customer:
+ *                   type: object
+ *                   description: Customer details
+ *       '401':
+ *         description: Invalid credentials
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Indicates if the authentication failed
+ *                 error:
+ *                   type: string
+ *                   description: Error message
+ */
+router.post('/login', LoginController.login);
 
 module.exports = router;

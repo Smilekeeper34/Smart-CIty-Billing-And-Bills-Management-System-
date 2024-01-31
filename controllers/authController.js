@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Customer = require('../models/customerModel');
+const LoginService = require('../services/loginService');
 
 // Step 1: Register basic information (email, phone, password, name)
 exports.registerBasicInfo = async (req, res) => {
@@ -95,4 +96,6 @@ exports.completeRegistration = async (req, res) => {
     console.error(error);
     return res.status(500).json({ success: false, error: 'Error completing registration' });
   }
+
+ 
 };
