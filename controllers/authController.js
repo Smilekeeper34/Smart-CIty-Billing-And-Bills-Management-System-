@@ -33,7 +33,7 @@ exports.registerBasicInfo = async (req, res) => {
     });
 
     // Generate a JWT token to be used in the next step
-    const token = jwt.sign({ userId: newCustomer.customerID }, 'LsP4EobgcBgwSD15KFtHhToXTDg3C3j7F7akQi9ApcBxiatieUXP17K2okHIhV8q', { expiresIn: '1h' });
+    const token = jwt.sign({ userId: newCustomer.customerID }, 'LsP4EobgcBgwSD15KFtHhToXTDg3C3j7F7akQi9ApcBxiatieUXP17K2okHIhV8q', { expiresIn: '30m' });
 
     return res.status(201).json({ success: true, token });
   } catch (error) {

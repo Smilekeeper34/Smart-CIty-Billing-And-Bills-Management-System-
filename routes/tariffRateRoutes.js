@@ -32,7 +32,7 @@ const authMiddleware = require('../middlewares/authMiddlewares');
  *           application/json:
  *             example: { success: false, error: 'Error creating tariff rate' }
  */
-router.post('/', authMiddleware.authenticateAdmin, tariffRateController.createTariffRate);
+router.post('/',  tariffRateController.createTariffRate);
 
 /**
  * @swagger
@@ -158,6 +158,6 @@ router.delete('/:tariffID', tariffRateController.deleteTariff);
  *           application/json:
  *             example: { success: false, error: 'Error updating tariff rate' }
  */
-router.put('/update/:tariffID', authMiddleware.authenticateAdmin, tariffRateController.updateTariffRate);
+router.put('/update/:tariffID',  tariffRateController.updateTariffRate);
 
 module.exports = router;

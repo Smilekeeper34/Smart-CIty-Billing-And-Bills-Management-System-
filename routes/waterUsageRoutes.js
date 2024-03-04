@@ -120,7 +120,7 @@ router.post('/collect', WaterUsageController.collectAndStoreData);
 router.get('/:customerID', WaterUsageController.getWaterUsageByCustomer);
 /**
  * @swagger
- * /water-usage/identify-patterns:
+ * /api/water-usage/identify-patterns:
  *   get:
  *     summary: Identify water usage patterns.
  *     tags: [WaterUsage]
@@ -134,7 +134,7 @@ router.get('/identify-patterns', WaterUsageController.identifyUsagePatterns);
 
 /**
  * @swagger
- * /water-usage/detect-anomalies:
+ * /api/water-usage/detect-anomalies:
  *   get:
  *     summary: Detect anomalies in water usage.
  *     tags: [WaterUsage]
@@ -148,7 +148,7 @@ router.get('/detect-anomalies', WaterUsageController.detectAnomalies);
 
 /**
  * @swagger
- * /water-usage/identify-trends:
+ * /api/water-usage/identify-trends:
  *   get:
  *     summary: Identify trends in water usage.
  *     tags: [WaterUsage]

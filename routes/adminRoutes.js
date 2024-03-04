@@ -40,7 +40,7 @@ const authMiddleware = require('../middlewares/authMiddlewares');
  *             example: { success: false, error: 'Error creating admin' }
  */
 
-router.post('/create',authMiddleware.authenticateAdmin, adminController.createAdmin);
+router.post('/create', adminController.createAdmin);
 
 /**
  * @swagger

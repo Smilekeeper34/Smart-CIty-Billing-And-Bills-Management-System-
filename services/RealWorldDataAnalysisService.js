@@ -5,13 +5,12 @@ const TimeSeries = require('timeseries-analysis');
 
 class RealWorldDataAnalysisService {
   static identifyUsagePatterns(waterUsageData) {
-    // Extract relevant features for clustering (for example, UsageAmount and MeterReading)
+    
     const features = waterUsageData.map((usage) => [usage.UsageAmount, usage.MeterReading]);
 
     // Perform k-means clustering (using machinelearn library)
-    const kmeans = new KMeans({ n_clusters: 3 }); // Adjust the number of clusters as needed
+    const kmeans = new KMeans({ n_clusters: 3 }); 
     const labels = kmeans.fit_predict(features);
-
     // Group data points based on cluster labels
     const clusters = {};
     labels.forEach((label, index) => {
@@ -25,10 +24,8 @@ class RealWorldDataAnalysisService {
   }
 
   static detectAnomalies(waterUsageData) {
-    // Extract relevant features for anomaly detection (for example, UsageAmount)
+    // Extract relevant features for anomaly detection 
     const features = waterUsageData.map((usage) => [usage.UsageAmount]);
-
-    // Standardize features
     const scaler = new StandardScaler();
     const standardizedFeatures = scaler.fit_transform(features);
 
@@ -43,7 +40,7 @@ class RealWorldDataAnalysisService {
   }
 
   static identifyTrends(waterUsageData) {
-    // Extract relevant features for trend analysis (for example, Timestamp and UsageAmount)
+    // Extract relevant features for trend analysis 
     const timeSeriesData = waterUsageData.map((usage) => [new Date(usage.Timestamp).getTime(), usage.UsageAmount]);
 
     // Create a time series from the data
