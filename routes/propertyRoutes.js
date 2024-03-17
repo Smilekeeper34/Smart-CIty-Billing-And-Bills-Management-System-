@@ -21,6 +21,13 @@ const PropertyController = require('../controllers/propertyController');
  *                 type: string
  *               propertyAddress:
  *                 type: string
+ *               propertyType:
+ *                 type: string
+ *                  enum:[Residential,Commercial,Vacant Land]
+ *               NumberOfRooms:
+ *                 type: integer
+ *               constructionYear:
+ *                 type: integer
  *     responses:
  *       201:
  *         description: Property registered successfully

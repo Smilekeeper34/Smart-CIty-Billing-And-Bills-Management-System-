@@ -24,7 +24,11 @@ const authMiddleware = require('../middlewares/authMiddlewares');
  *       content:
  *         application/json:
  *           example:
- *             name: Monthly
+ *             name: 'Monthly'
+ *             startDate: '2024-02-01'
+ *             endDate: '2024-02-28'
+ *             rate: 2.456
+ *             version: 1.0.0
  *     responses:
  *       '201':
  *         description: Billing cycle created successfully
@@ -42,7 +46,7 @@ const authMiddleware = require('../middlewares/authMiddlewares');
  *           application/json:
  *             example: { success: false, error: 'Error creating billing cycle' }
  */
-router.post('/create', authMiddleware.authenticateAdmin, billingCycleController.createBillingCycle);
+router.post('/create',  billingCycleController.createBillingCycle);
 
 /**
  * @swagger
@@ -84,7 +88,7 @@ router.post('/create', authMiddleware.authenticateAdmin, billingCycleController.
  *           application/json:
  *             example: { success: false, error: 'Error updating billing cycle' }
  */
-router.put('/update/:billingCycleID',authMiddleware.authenticateAdmin, billingCycleController.updateBillingCycle);
+router.put('/update/:billingCycleID', billingCycleController.updateBillingCycle);
 
 /**
  * @swagger
@@ -122,7 +126,7 @@ router.put('/update/:billingCycleID',authMiddleware.authenticateAdmin, billingCy
  *           application/json:
  *             example: { success: false, error: 'Error getting billing cycle' }
  */
-router.get('/getByVersion/:billingCycleID/:version',authMiddleware.authenticateAdmin, billingCycleController.getBillingCycleByVersion);
+router.get('/getByVersion/:billingCycleID/:version', billingCycleController.getBillingCycleByVersion);
 
 
 module.exports = router;

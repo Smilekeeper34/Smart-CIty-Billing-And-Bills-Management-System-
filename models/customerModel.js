@@ -1,18 +1,21 @@
 // models/customerModel.js
 
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize ,Model } = require("sequelize"); // Import Sequelize object
+
 const sequelize = require("../config/database");
 const Property = require("./propertyModel");
 const CustomerIdGenerator = require("../services/customerIdGenerator");
 const bcrypt = require("bcrypt");
+const CustomerAccount = require("./customerAccountModel"); // Import CustomerAccount model
 
 const Customer = sequelize.define(
   "Customer",
   {
     customerId: {
-      type: DataTypes.STRING(8),
+      type: DataTypes.INTEGER(8),
       primaryKey: true,
       unique: true,
+     defaultValue: () => CustomerIdGenerator.generateCustId(),
     },
     customer_id_string: {
       type: DataTypes.STRING(8),
@@ -96,6 +99,11 @@ const Customer = sequelize.define(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    accountType: {
+      type: DataTypes.ENUM('Landowner', 'Tenant'),
+      allowNull: false,
+      defaultValue: 'Landowner',
+    },
     residentialType: {
       type: DataTypes.ENUM("House", "Apartment", "Condo", "Other"),
     },
@@ -136,17 +144,38 @@ const Customer = sequelize.define(
   },
   {
     tableName: "customers",
-    // hooks: {
-    //   // Use hooks to hash the password before saving to the database
-    //   beforeCreate: async (customer) => {
-    //     const hashedPassword = await bcrypt.hash(customer.password, 10);
-    //     customer.password = hashedPassword;
-    //   },
-    // },
+    hooks: {
+      // Use hooks to create a CustomerAccount after a Customer is created
+      afterCreate: async (customer) => {
+        try {
+          const { accountType } = customer.dataValues;
+          await CustomerAccount.create({
+            customer_id_string: customer.customer_id_string,
+            accountType: accountType || "DefaultAccountType",
+            balance: 0.0,
+            cityBillAccount: true,
+          });
+        } catch (error) {
+          console.error("Error creating CustomerAccount:", error);
+        }
+      },
+    },
   }
 );
 
-// Create association between Customer and Property
-// Customer.hasMany(Property, { foreignKey: 'propertyID' });
+Customer.associate = (models) => {
+  Customer.hasMany(models.Property, {
+    foreignKey: 'customerId'
+  });
+  Customer.hasOne(models.CustomerAccount, {
+    foreignKey: 'customerId'
+  });
+   Customer.hasMany(models.Feedback, {
+      foreignKey: 'customerId'
+    });
+    Customer.hasMany(models.WaterUsage, {
+            foreignKey: 'customerId'
+     });
+};
 
 module.exports = Customer;

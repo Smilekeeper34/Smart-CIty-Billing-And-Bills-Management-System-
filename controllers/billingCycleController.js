@@ -2,7 +2,8 @@ const BillingCycle = require('../models/billingCycle');
 
 const createBillingCycle = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name ,rate ,version,startDate, endDate } = req.body;
+
 
     // Check if the billing cycle with the same name already exists
     const existingBillingCycle = await BillingCycle.findOne({ where: { name } });
@@ -11,7 +12,7 @@ const createBillingCycle = async (req, res) => {
     }
 
     // Create the billing cycle
-    const newBillingCycle = await BillingCycle.create({ name });
+    const newBillingCycle = await BillingCycle.create({ name ,rate,version,startDate, endDate});
 
     return res.status(201).json({ success: true, billingCycle: newBillingCycle });
   } catch (error) {
@@ -51,7 +52,7 @@ const updateBillingCycle = async (req, res) => {
   };
   
 
-// Example for getting a billing cycle by ID and version
+
 const getBillingCycleByVersion = async (req, res) => {
     try {
       const { billingCycleID, version } = req.params;

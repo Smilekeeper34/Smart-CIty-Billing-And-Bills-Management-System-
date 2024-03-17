@@ -2,13 +2,22 @@ class CustomerIdGenerator {
     static generateCustomerId() {
       const letters = generateRandomLetters(3);
       const numbers = generateRandomNumbers(4);
-  
+
       const customerId = `${letters}${numbers}`;
-  
-      return customerId;
+
+      return customerId ;
     }
+
+    static generateCustId() {
+
+          const numbers = generateRandomNumbers(4);
+          const custId = `${numbers}`;
+          return  custId;
+        }
   }
-  
+
+
+
   function generateRandomLetters(length) {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let result = '';

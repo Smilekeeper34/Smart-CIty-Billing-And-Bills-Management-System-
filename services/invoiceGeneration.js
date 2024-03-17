@@ -36,7 +36,7 @@ const generateInvoice = async (req, res) => {
       taxAmount: req.body.taxAmount,
       discountAmount: req.body.discountAmount,
       promoCode: req.body.promoCode,
-      // Additional fields or associations as needed
+
     });
 
     return res.status(201).json({ success: true, billing: newBilling });

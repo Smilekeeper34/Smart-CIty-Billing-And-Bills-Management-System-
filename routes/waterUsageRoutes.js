@@ -12,7 +12,7 @@ const WaterUsageController = require('../controllers/WaterUsageController');
 
 /**
  * @swagger
- * api/water-usage/collect:
+ * /api/water-usage/collect:
  *   post:
  *     summary: Collect and store water usage data
  *     tags: [WaterUsage]
@@ -100,7 +100,7 @@ router.post('/collect', WaterUsageController.collectAndStoreData);
 
 /**
  * @swagger
- * api/water-usage/{customerID}:
+ * /api/water-usage/{customerID}:
  *   get:
  *     summary: Get water usage data for a specific customer
  *     tags: [WaterUsage]

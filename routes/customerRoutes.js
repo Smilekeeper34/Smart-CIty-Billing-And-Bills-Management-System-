@@ -31,6 +31,7 @@ const customerService = require("../services/customerService");
  *             State: Stateville
  *             ZipCode: 12345
  *             Country: USA
+ *             AccountType: Landowner
  *             ContactNumber: +1234567890
  *             Email: john.doe@example.com
  *             DateOfBirth: 1990-01-01

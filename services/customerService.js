@@ -7,7 +7,7 @@ const { createLogger, transports } = require('winston');
 const logger = createLogger({
   transports: [
     new transports.Console(),
-    // You can add more transports like a file transport here
+
   ],
 });
 
@@ -43,6 +43,12 @@ const getCustomerById = async (customerID) => {
     throw new Error(`Error getting customer: ${error.message}`);
   }
 };
+
+//const getCustomerByCustomID = async (customer_is_string) => {
+//    try {
+//    const customer = await Customer.findBy
+//    }
+//}
 
 const updateCustomer = async (customerID, updatedData) => {
   try {

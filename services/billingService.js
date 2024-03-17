@@ -1,6 +1,7 @@
 // billingService.js
 const Billing = require('../models/billingModel');
 
+
 class BillingService {
     async createBilling(customerID, paymentMethod, transactionId, notes, lateFee, taxAmount, discountAmount, promoCode) {
         try {
@@ -59,10 +60,10 @@ const processPayment = async (req, res) => {
   try {
     const { customerID, amount, paymentMethod, transactionId } = req.body;
 
-    // Simulate interaction with an external payment gateway
+
     const paymentGatewayResponse = await simulatePaymentGatewayInteraction(amount, paymentMethod, transactionId);
 
-    // Check if payment was successful
+
     if (!paymentGatewayResponse.success) {
       return res.status(400).json({ success: false, error: 'Payment failed. Please try again.' });
     }
@@ -70,14 +71,12 @@ const processPayment = async (req, res) => {
     // Simulating payment processing with a delay of 2 seconds
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    // Assuming you have a Payment model, you can create a new payment record
     const newPayment = await Payment.create({
       customerID,
       amount,
       paymentMethod,
       transactionId,
       paymentDate: new Date(),
-      // Additional fields or associations as needed
     });
 
     // Update payment status for the corresponding invoice or billing record
@@ -99,7 +98,7 @@ const processPayment = async (req, res) => {
 
 // Simulate interaction with an external payment gateway
 const simulatePaymentGatewayInteraction = async (amount, paymentMethod, transactionId) => {
-  // Your logic to interact with a real payment gateway would go here
+  //  logic to interact with payment gateway here
   // For simulation purposes, this example assumes success after 1 second
   await new Promise((resolve) => setTimeout(resolve, 1000));
 

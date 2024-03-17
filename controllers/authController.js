@@ -31,11 +31,13 @@ exports.registerBasicInfo = async (req, res) => {
       firstName,
       lastName,
     });
+    // Access the newly created customer's ID
+    const customerID = newCustomer.get('customerId');
 
     // Generate a JWT token to be used in the next step
     const token = jwt.sign({ userId: newCustomer.customerID }, 'LsP4EobgcBgwSD15KFtHhToXTDg3C3j7F7akQi9ApcBxiatieUXP17K2okHIhV8q', { expiresIn: '30m' });
-
-    return res.status(201).json({ success: true, token });
+    console.log("Created customer:", newCustomer.toJSON());
+    return res.status(201).json({ success: true, token , customerID});
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, error: 'Error registering basic information' });

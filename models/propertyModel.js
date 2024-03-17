@@ -2,6 +2,7 @@
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Customer = require("./customerModel");
 
 const Property = sequelize.define('Property', {
   propertyID: {
@@ -32,5 +33,6 @@ const Property = sequelize.define('Property', {
   },
  
 });
+
 
 module.exports = Property;

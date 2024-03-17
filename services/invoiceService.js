@@ -46,7 +46,6 @@ const generateInvoice = async (customerID, subscriptionName, subscriptionPrice, 
 
 // Simulated function to get customer details from a database
 const getCustomerDetails = async (customerID) => {
-  // Assume fetching customer details from a database
   // This is just a placeholder, you should replace it with your actual database query logic
   return {
     hasPromoCode: true, // Simulated scenario where the customer has a promo code
