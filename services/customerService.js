@@ -44,12 +44,6 @@ const getCustomerById = async (customerID) => {
   }
 };
 
-//const getCustomerByCustomID = async (customer_is_string) => {
-//    try {
-//    const customer = await Customer.findBy
-//    }
-//}
-
 const updateCustomer = async (customerID, updatedData) => {
   try {
     const customer = await Customer.findByPk(customerID);

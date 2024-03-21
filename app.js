@@ -19,6 +19,7 @@ const systemConfigRoutes = require("./routes/systemConfigRoutes");
 const authRoutes = require("./routes/authRoutes");
 const propertyRoutes = require('./routes/propertyRoutes');
 const waterUsageRoutes = require('./routes/waterUsageRoutes');
+const houseRoutes = require('./routes/houseRoutes');
 
 dotenv.config();
 const app = express();
@@ -50,6 +51,7 @@ app.use('/api/billing-cycles', billingCycleRoutes);
 app.use('/api/tariffRates', tariffRateRoutes);
 app.use('/api/properties', propertyRoutes);
 app.use('/api/water-usage', waterUsageRoutes);
+app.use('/api/houses', houseRoutes);
 
 
 const PORT = process.env.PORT || 3000;

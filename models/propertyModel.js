@@ -35,4 +35,5 @@ const Property = sequelize.define('Property', {
 });
 
 
+
 module.exports = Property;

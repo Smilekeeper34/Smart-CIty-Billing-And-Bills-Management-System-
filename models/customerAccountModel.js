@@ -29,8 +29,11 @@ const CustomerAccount = sequelize.define(
     tableName: 'customer_accounts',
   }
 );
+CustomerAccount.associate = (models) => {
+  CustomerAccount.belongsTo(models.Customer, {
+    foreignKey: 'customerId'
+  });
+};
 
-//const Customer = require('./customerModel');
-//CustomerAccount.belongsTo(Customer);
 
 module.exports = CustomerAccount;

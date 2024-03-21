@@ -1,12 +1,12 @@
 // models/customerModel.js
 
-const { DataTypes, Sequelize ,Model } = require("sequelize"); // Import Sequelize object
+const { DataTypes, Sequelize, Model } = require("sequelize");
 
 const sequelize = require("../config/database");
 const Property = require("./propertyModel");
 const CustomerIdGenerator = require("../services/customerIdGenerator");
 const bcrypt = require("bcrypt");
-const CustomerAccount = require("./customerAccountModel"); // Import CustomerAccount model
+const CustomerAccount = require("./customerAccountModel");
 
 const Customer = sequelize.define(
   "Customer",
@@ -15,7 +15,7 @@ const Customer = sequelize.define(
       type: DataTypes.INTEGER(8),
       primaryKey: true,
       unique: true,
-     defaultValue: () => CustomerIdGenerator.generateCustId(),
+      defaultValue: () => CustomerIdGenerator.generateCustId(),
     },
     customer_id_string: {
       type: DataTypes.STRING(8),
@@ -100,9 +100,9 @@ const Customer = sequelize.define(
       defaultValue: false,
     },
     accountType: {
-      type: DataTypes.ENUM('Landowner', 'Tenant'),
+      type: DataTypes.ENUM("Landowner", "Tenant"),
       allowNull: false,
-      defaultValue: 'Landowner',
+      defaultValue: "Landowner",
     },
     residentialType: {
       type: DataTypes.ENUM("House", "Apartment", "Condo", "Other"),
@@ -165,17 +165,20 @@ const Customer = sequelize.define(
 
 Customer.associate = (models) => {
   Customer.hasMany(models.Property, {
-    foreignKey: 'customerId'
+    foreignKey: "customerId",
   });
   Customer.hasOne(models.CustomerAccount, {
-    foreignKey: 'customerId'
+    foreignKey: "customerId",
   });
-   Customer.hasMany(models.Feedback, {
-      foreignKey: 'customerId'
-    });
-    Customer.hasMany(models.WaterUsage, {
-            foreignKey: 'customerId'
-     });
+  Customer.hasMany(models.Feedback, {
+    foreignKey: "customerId",
+  });
+  Customer.hasMany(models.WaterUsage, {
+    foreignKey: "customerId",
+  });
+  Customer.hasMany(models.House, {
+    foreignKey: "customerId",
+  });
 };
 
 module.exports = Customer;
